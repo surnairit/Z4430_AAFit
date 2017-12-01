@@ -91,7 +91,8 @@ public:
 	const vector< TString >& _varNames,
 	const RooArgSet _amplitudeVars,
 	const TString& _psi_nS,
-	const Double_t& _dRadB0, const Double_t& _dRadKs
+	const Double_t& _dRadB0, const Double_t& _dRadKs,
+  const Bool_t& _LASS
 	);
   myPDF(const myPDF& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new myPDF(*this,newname); }
@@ -134,6 +135,7 @@ public:
     TComplex BW(Double_t RMass, Double_t RGamma, Double_t RMassCalc, Double_t GDau1Mass, Double_t GDau2Mass, Int_t Lmin, Double_t D) const;
     //TComplex RFunction(Double_t RMass, Double_t RGamma, Double_t MomMass, Int_t LminLb, Int_t LminLs, Double_t DB0, Double_t DKs) const ;
     TComplex RFunction(Double_t RMass, Double_t RGamma, Double_t RMassCalc, Double_t Dau2Mass, Double_t GDau1Mass, Double_t GDau2Mass, Double_t MomMass, Int_t LminMom, Int_t LminR, Double_t DB0, Double_t DKs) const;
+    TComplex LASSParam(Double_t RMassCalc, Double_t Dau2Mass, Double_t MomMass) const;
     
     /*
     TComplex Cterm(string helLs, string helJ, string help) const ;
@@ -177,6 +179,7 @@ private:
   map< TString,RooRealProxy* > amplitudeVarProxy_map;
   TString psi_nS;
   Double_t dRadB0, dRadKs;
+  Bool_t LASS;
     
   ClassDef(myPDF,1) // Your description goes here...
 };

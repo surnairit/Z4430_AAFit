@@ -45,8 +45,8 @@
 //#include "RooNDKeysPdf.h"
 #include "RooBinning.h"
 
-#include <sys/time.h> // for timeval
-#include <sys/times.h> // for tms
+//#include <sys/time.h> // for timeval
+//#include <sys/times.h> // for tms
 //#include <time.h>
 //#include <ctime> 
 #include "TSystem.h" // to get number of CPUs
@@ -178,7 +178,7 @@ void plotting(const RooDataHist* hist, const TString name, const RooRealVar* x, 
 }
 
 
-void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALSE, Bool_t effFlag = kFALSE, Bool_t B0BarFlag = kTRUE, Int_t bkgMassOrd = 1, Int_t bkgAngOrd = 1, Int_t effMassOrd = 1, Int_t effAngOrd = 1)
+void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALSE, Bool_t effFlag = kFALSE, Bool_t B0BarFlag = kFALSE, Int_t bkgMassOrd = 1, Int_t bkgAngOrd = 1, Int_t effMassOrd = 1, Int_t effAngOrd = 1, Bool_t isLASS = kTRUE)
 {
   cout <<"With cut-based efficiency the linear interpolation (effOrd=1) of masses does not work" <<endl;
 
@@ -201,19 +201,28 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
   vector< pair<TString, pair<const Double_t, const Double_t> > > Zc_spin;
   map< TString, pair<Double_t, Double_t> > helJ_map;
 
+  cout <<"Adding K*(800)_0..." <<endl;
+  Kstar_spin.push_back( make_pair("800_0", make_pair(M800,G800) ) ) ;
+  helJ_map["800_0_0"] = make_pair(K800_0_0_a,K800_0_0_b);
+  Bool_t isK800 = kTRUE;
+  if (isLASS) {
+    if (!isK800) {
+      cout << "K*(800)_0 needs to be added for LASS parametrization " << endl;
+      return;
+    }
+  }
+
   cout <<"Adding K*(892)..." <<endl;
   Kstar_spin.push_back( make_pair("892_1", make_pair(M892,G892) ) ) ;
   helJ_map["892_1_0"] = make_pair(K892_1_0_a,K892_1_0_b); helJ_map["892_1_p1"] = make_pair(K892_1_p1_a,K892_1_p1_b); helJ_map["892_1_m1"] = make_pair(K892_1_m1_a,K892_1_m1_b); // from Belle
   //helJ_map["892_1_0"] = make_pair(0.775,0.); helJ_map["892_1_p1"] = make_pair(0.159,1.563); helJ_map["892_1_m1"] = make_pair(0.612,2.712); // from EvtGen
 
-  cout <<"Adding K*(800)_0..." <<endl;
-  Kstar_spin.push_back( make_pair("800_0", make_pair(M800,G800) ) ) ;
-  helJ_map["800_0_0"] = make_pair(K800_0_0_a,K800_0_0_b);
-
+/*
   cout <<"Adding K*(1410)..." <<endl;
   Kstar_spin.push_back( make_pair("1410_1", make_pair(M1410,G1410) ) ) ;
   helJ_map["1410_1_0"] = make_pair(K1410_1_0_a,K1410_1_0_b); helJ_map["1410_1_p1"] = make_pair(K1410_1_p1_a,K1410_1_p1_b); helJ_map["1410_1_m1"] = make_pair(K1410_1_m1_a,K1410_1_m1_b);
 
+  // Do not add K*(1430)_0 if using LASS
   cout <<"Adding K*(1430)_0..." <<endl;
   Kstar_spin.push_back( make_pair("1430_0", make_pair(M1430_0,G1430_0) ) ) ;
   helJ_map["1430_0_0"] = make_pair(K1430_0_0_a,K1430_0_0_b);
@@ -222,7 +231,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
   cout <<"Adding K*(1430)_2..." <<endl;
   Kstar_spin.push_back( make_pair("1430_2", make_pair(M1430_2,G1430_2) ) ) ;
   helJ_map["1430_2_0"] = make_pair(K1430_2_0_a,K1430_2_0_b); helJ_map["1430_2_p1"] = make_pair(K1430_2_p1_a,K1430_2_p1_b); helJ_map["1430_2_m1"] = make_pair(K1430_2_m1_a,K1430_2_m1_b);
-/*
+
   cout <<"Adding K*(1680)..." <<endl;
   Kstar_spin.push_back( make_pair("1680_1", make_pair(M1680,G1680) ) ) ;
   helJ_map["1680_1_0"] = make_pair(K1680_1_0_a,K1680_1_0_b); helJ_map["1680_1_p1"] = make_pair(K1680_1_p1_a,K1680_1_p1_b); helJ_map["1680_1_m1"] = make_pair(K1680_1_m1_a,K1680_1_m1_b);
@@ -249,7 +258,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
     Kstar_spin.push_back( make_pair("2380_5", make_pair(M2380_5,G2380_5) ) ) ;
     helJ_map["2380_5_0"] = make_pair(1.,0.); helJ_map["2380_5_p1"] = make_pair(0.,0.); helJ_map["2380_5_m1"] = make_pair(0.,0.);
   */
-  /*
+/*  
   cout <<"Adding Z(4200)..." <<endl;
   Zc_spin.push_back( make_pair("4200_1", make_pair(MZ4200,GZ4200) ) ) ;
   helJ_map["4200_1_0"] = make_pair(Z4200_1_0_a,Z4200_1_0_b); helJ_map["4200_1_m1"] = make_pair(Z4200_1_m1_a,Z4200_1_m1_b); //helJ_map["4200_1_p1"] = make_pair(Z4200_1_p1_a,Z4200_1_p1_b); // parity conservation
@@ -257,7 +266,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
   cout <<"Adding Z(4430)..." <<endl;
   Zc_spin.push_back( make_pair("4430_1", make_pair(MZ4430,GZ4430) ) ) ;
   helJ_map["4430_1_0"] = make_pair(Z4430_1_0_a,Z4430_1_0_b); helJ_map["4430_1_m1"] = make_pair(Z4430_1_m1_a,Z4430_1_m1_b); //helJ_map["4430_1_p1"] = make_pair(Z4430_1_p1_a,Z4430_1_p1_b); // parity conservation
-  */
+*/  
   
   TString Hel = ""; //Hel = "_hel0"; //Hel = "_noHel0";
   if (Hel.Contains("_hel0"))
@@ -449,12 +458,20 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
     if (nKstars == 1) {
       sigName.Append(Kstar_spin.front().first);
       sigTitle.ReplaceAll("K*s","K*");
+      if (isLASS && isK800) sigName.Append("_with_LASS");
     } else {
       sigName.ReplaceAll("Kstar_","Kstars");
-      for (Int_t iKstar_S=0; iKstar_S<nKstars; ++iKstar_S)
-	sigName.Append("__"+Kstar_spin[iKstar_S].first);
+      for (Int_t iKstar_S=0; iKstar_S<nKstars; ++iKstar_S) {
+        if (iKstar_S == 0 && isLASS && isK800) {
+	  sigName.Append("__"+Kstar_spin[iKstar_S].first);
+          sigName.Append("_with_LASS");
+        }
+        else {
+          sigName.Append("__"+Kstar_spin[iKstar_S].first);
+        }
+      }
+      sigName.Append(Hel);
     }
-    sigName.Append(Hel);
   }
   if (nZc>0) {
     sigName.Append("_Zc_");
@@ -475,7 +492,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
 		     //massKPi, cosMuMu, massPsiPi, phi,
 		     (RooRealVar&)(kinematicVars[sigPDF_varNameTitle[0].first]), (RooRealVar&)(kinematicVars[sigPDF_varNameTitle[1].first]), (RooRealVar&)(kinematicVars[sigPDF_varNameTitle[2].first]), (RooRealVar&)(kinematicVars[sigPDF_varNameTitle[3].first]),
                      B0beauty,
-		     Kstar_spin, Zc_spin, varNames, amplitudeVars, psi_nS, dRadB0, dRadKs) ;
+		     Kstar_spin, Zc_spin, varNames, amplitudeVars, psi_nS, dRadB0, dRadKs, isLASS) ;
 
   if (sigPDF && !nKstars && !nZc ) {
     cout <<"sigPDF set up with no K* or Zc! Please check" <<endl;
@@ -521,7 +538,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
 
   RooAbsPdf* bkgPDF = BdToPsiPiK_PHSP; bkgPDF = 0;
 
-  Double_t totEvents = 1000000; // Generation time does not scale with number of events up to at least 10k events, from 100k yes
+  Double_t totEvents = 200000; // Generation time does not scale with number of events up to at least 10k events, from 100k yes
   //totEvents *= 2;
   //totEvents *= 2.5;
   //totEvents *= 5;
@@ -1146,7 +1163,7 @@ void Analysis(Int_t nEvt = 10, Bool_t generating = kTRUE, Bool_t bkgFlag = kFALS
   nLegendEntries++; // either for generation or fit
 
   Float_t topRightCorner = 0.9;
-  Bool_t plotSingleKstars = kTRUE; plotSingleKstars = kFALSE;
+  Bool_t plotSingleKstars = kTRUE; //plotSingleKstars = kFALSE;
   Float_t yLegLow = topRightCorner -(nLegendEntries+(plotSingleKstars ? nKstars : 1))*0.05 ;
   Float_t xMin = 0.6;
   TLegend* leg = new TLegend(xMin, yLegLow, topRightCorner, topRightCorner); leg->SetFillColor(kWhite);

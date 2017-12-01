@@ -13,11 +13,13 @@ const Double_t MKaon = 0.493677;
 const Double_t MPion = 0.13957018;
 const Double_t MMuon = 0.1056583715;
 
-const Double_t M892 = 0.89581 ; const Double_t G892 = 0.0474; // From PDG neutral only K*(892)
-//const Double_t M892 = 0.8961 ; const Double_t G892 = 0.0507; // From EvtGen
+// LASS Parametrization
+const Double_t a_LASS = 1.95; const Double_t b_LASS = 1.76; // values from BaBar BAD1481
 const Double_t M800 = 0.682; const Double_t G800 = 0.547; // From PDG
 // K*800 Belle values: M = 0.946, G = 0.736 ?
 //const Double_t M800 = 0.931; const Double_t G800 = 0.578; // From Belle
+const Double_t M892 = 0.89581 ; const Double_t G892 = 0.0474; // From PDG neutral only K*(892)
+//const Double_t M892 = 0.8961 ; const Double_t G892 = 0.0507; // From EvtGen
 const Double_t M1410 = 1.414; const Double_t G1410 = 0.232;
 const Double_t M1430_0 = 1.425; const Double_t G1430_0 = 0.270;
 const Double_t M1430_2 = 1.4324; const Double_t G1430_2 = 0.109; // From PDG neutral only

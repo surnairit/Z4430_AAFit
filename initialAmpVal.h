@@ -3,7 +3,8 @@ const Double_t K892_1_0_a = 1., K892_1_0_b = 0.;
 const Double_t K892_1_p1_a = 0.844, K892_1_p1_b = 3.14;
 const Double_t K892_1_m1_a = 0.196, K892_1_m1_b = -1.7;
 
-const Double_t K800_0_0_a = 1.12, K800_0_0_b = 2.3;
+const Double_t K800_0_0_a = 1.12, K800_0_0_b = 2.3; // values form Belle Paper
+//const Double_t K800_0_0_a = 0.2, K800_0_0_b = -1.5; // random values for testing with LASS
 
 const Double_t K1410_1_0_a = 0.119, K1410_1_0_b = 0.81;
 const Double_t K1410_1_p1_a = 0.123, K1410_1_p1_b = -1.04;

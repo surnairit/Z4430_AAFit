@@ -14,7 +14,8 @@ const Double_t MPion = 0.13957018;
 const Double_t MMuon = 0.1056583715;
 
 // LASS Parametrization
-const Double_t a_LASS = 1.95; const Double_t b_LASS = 1.76; // values from BaBar BAD1481
+//const Double_t a_LASS = 1.95; const Double_t b_LASS = 1.76; // values from BaBar BAD1481
+const Double_t a_LASS = 2.07; const Double_t b_LASS = 1.66; // values from Belle Code 
 const Double_t M800 = 0.682; const Double_t G800 = 0.547; // From PDG
 // K*800 Belle values: M = 0.946, G = 0.736 ?
 //const Double_t M800 = 0.931; const Double_t G800 = 0.578; // From Belle

@@ -135,7 +135,7 @@ public:
     TComplex BW(Double_t RMass, Double_t RGamma, Double_t RMassCalc, Double_t GDau1Mass, Double_t GDau2Mass, Int_t Lmin, Double_t D) const;
     //TComplex RFunction(Double_t RMass, Double_t RGamma, Double_t MomMass, Int_t LminLb, Int_t LminLs, Double_t DB0, Double_t DKs) const ;
     TComplex RFunction(Double_t RMass, Double_t RGamma, Double_t RMassCalc, Double_t Dau2Mass, Double_t GDau1Mass, Double_t GDau2Mass, Double_t MomMass, Int_t LminMom, Int_t LminR, Double_t DB0, Double_t DKs) const;
-    TComplex LASSParam(Double_t RMassCalc, Double_t Dau2Mass, Double_t MomMass) const;
+    TComplex LASSParam(Double_t RMassCalc, Double_t Dau2Mass, Double_t MomMass, Double_t DB0) const;
     
     /*
     TComplex Cterm(string helLs, string helJ, string help) const ;
